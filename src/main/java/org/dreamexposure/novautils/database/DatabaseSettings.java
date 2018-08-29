@@ -1,4 +1,4 @@
-package org.dreamexposure.database;
+package org.dreamexposure.novautils.database;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})

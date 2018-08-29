@@ -1,4 +1,4 @@
-package org.dreamexposure.file;
+package org.dreamexposure.novautils.file;
 
 import java.io.*;
 

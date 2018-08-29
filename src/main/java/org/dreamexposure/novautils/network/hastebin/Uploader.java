@@ -1,4 +1,4 @@
-package org.dreamexposure.network.hastebin;
+package org.dreamexposure.novautils.network.hastebin;
 
 import okhttp3.*;
 import org.json.JSONObject;

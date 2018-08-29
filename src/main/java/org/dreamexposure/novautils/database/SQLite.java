@@ -1,4 +1,4 @@
-package org.dreamexposure.database;
+package org.dreamexposure.novautils.database;
 
 import java.io.File;
 import java.io.IOException;
