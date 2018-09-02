@@ -63,6 +63,15 @@
             <scope>compile</scope>
             <optional>false</optional>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
+            <scope>compile</scope>
+            <optional>false</optional>
+        </dependency>
+
     </dependencies>
 
     <build>
