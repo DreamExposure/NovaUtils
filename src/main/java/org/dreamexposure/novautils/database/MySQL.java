@@ -11,6 +11,7 @@ public class MySQL extends Database {
     private final String password;
     private final String port;
     private final String hostname;
+    private final String prefix;
 
     /**
      * Creates a new MySQL instance
@@ -20,8 +21,9 @@ public class MySQL extends Database {
      * @param username Username
      * @param password Password
      */
-    public MySQL(String hostname, String port, String username, String password) {
-        this(hostname, port, null, username, password);
+    public MySQL(String hostname, String port, String prefix, String username,
+                 String password) {
+        this(hostname, port, null, prefix, username, password);
     }
 
     /**
@@ -33,25 +35,34 @@ public class MySQL extends Database {
      * @param username Username
      * @param password Password
      */
-    public MySQL(String hostname, String port, String database, String username, String password) {
+    public MySQL(String hostname, String port, String database, String prefix, String username, String password) {
         this.hostname = hostname;
         this.port = port;
         this.database = database;
         this.user = username;
         this.password = password;
+        this.prefix = prefix;
     }
 
     @Override
-    public Connection openConnection() throws SQLException, ClassNotFoundException {
-        if (checkConnection())
+    public Connection openConnection() throws SQLException,
+            ClassNotFoundException {
+        if (checkConnection()) {
             return connection;
-
-        String connectionURL = "jdbc:mysql://" + this.hostname + ":" + this.port;
-        if (database != null)
-            connectionURL = connectionURL + "/" + this.database;
+        }
+        String connectionURL = "jdbc:mysql://"
+                + this.hostname + ":" + this.port;
+        if (database != null) {
+            connectionURL = connectionURL + "/" + this.database + "?autoReconnect=true&useSSL=false";
+        }
 
         Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection(connectionURL, this.user, this.password);
+        connection = DriverManager.getConnection(connectionURL,
+                this.user, this.password);
         return connection;
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 }
