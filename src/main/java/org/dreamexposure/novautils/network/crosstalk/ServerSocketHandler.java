@@ -1,5 +1,7 @@
 package org.dreamexposure.novautils.network.crosstalk;
 
+import org.dreamexposure.novautils.event.EventDispatch;
+import org.dreamexposure.novautils.events.network.crosstalk.CrossTalkReceiveEvent;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
@@ -48,7 +50,9 @@ public class ServerSocketHandler {
                 }
             }
 
-           //TODO: handle event
+           //Handle event
+            CrossTalkReceiveEvent event = new CrossTalkReceiveEvent(data, clientIp, clientPort, clientIndex);
+            EventDispatch.get().dispatch(event);
 
             return true;
         } catch (Exception e) {

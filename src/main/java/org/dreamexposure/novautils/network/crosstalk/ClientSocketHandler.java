@@ -1,5 +1,7 @@
 package org.dreamexposure.novautils.network.crosstalk;
 
+import org.dreamexposure.novautils.event.EventDispatch;
+import org.dreamexposure.novautils.events.network.crosstalk.CrossTalkReceiveEvent;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
@@ -73,10 +75,14 @@ public class ClientSocketHandler {
                     //Parse
                     JSONObject data = new JSONObject(dataOr.getJSONObject("Data"));
                     String clientIp = dataOr.getString("Client-IP");
-                    String clientPlugin = dataOr.getString("Client-Index");
+                    int clientIndex = dataOr.getInt("Client-Index");
 
                     dis.close();
                     client.close();
+
+                    //Handle event
+                    CrossTalkReceiveEvent event = new CrossTalkReceiveEvent(data, clientIp, clientPort, clientIndex);
+                    EventDispatch.get().dispatch(event);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
