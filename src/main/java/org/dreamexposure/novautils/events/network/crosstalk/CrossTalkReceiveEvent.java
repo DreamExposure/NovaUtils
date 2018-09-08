@@ -1,9 +1,8 @@
 package org.dreamexposure.novautils.events.network.crosstalk;
 
-import org.dreamexposure.novautils.event.Event;
 import org.json.JSONObject;
 
-public class CrossTalkReceiveEvent extends Event {
+public class CrossTalkReceiveEvent {
     private final JSONObject data;
     private final String clientIp;
     private final int clientPort;
