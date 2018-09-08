@@ -7,7 +7,7 @@ import java.util.List;
 public class EventDispatch {
     private static EventDispatch instance;
 
-    private HashMap<Event, List<IEventListener>> subs = new HashMap<>();
+    private HashMap<Event<? extends Event>, List<IEventListener>> subs = new HashMap<>();
 
     private EventDispatch() {}
 
@@ -18,7 +18,7 @@ public class EventDispatch {
         return instance;
     }
 
-    public void subscribe(Event event, IEventListener listener) {
+    public void subscribe(Event<? extends Event> event, IEventListener listener) {
         if (subs.containsKey(event)) {
             subs.get(event).add(listener);
         } else {
@@ -26,7 +26,7 @@ public class EventDispatch {
         }
     }
 
-    public void dispatch(Event event) {
+    public void dispatch(Event<? extends Event> event) {
         if (subs.containsKey(event)){
             for (IEventListener el : subs.get(event)) {
                 el.dispatch(event);

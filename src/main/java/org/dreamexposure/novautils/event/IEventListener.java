@@ -1,5 +1,5 @@
 package org.dreamexposure.novautils.event;
 
 public interface IEventListener {
-    void dispatch(Event event);
+    void dispatch(Event<? extends Event> event);
 }

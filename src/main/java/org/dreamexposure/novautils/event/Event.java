@@ -1,4 +1,4 @@
 package org.dreamexposure.novautils.event;
 
-public class Event {
+public class Event<T> {
 }
