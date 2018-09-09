@@ -50,10 +50,6 @@ public class ServerSocketHandler {
                 }
             }
 
-            //Handle event
-            CrossTalkReceiveEvent event = new CrossTalkReceiveEvent(data, clientIp, clientPort, clientIndex);
-            EventManager.get().fireEvent(event);
-
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,6 +95,10 @@ public class ServerSocketHandler {
                         //Send to all clients!!!!
                         sendToAllClients(data, clientIp, clientPort, clientIndex);
                     }
+
+                    //Handle event -- NOTE: Event will fire even if Keep Alive incase server needs to handle it.
+                    CrossTalkReceiveEvent event = new CrossTalkReceiveEvent(data, clientIp, clientPort, clientIndex);
+                    EventManager.get().fireEvent(event);
 
                     dis.close();
                     client.close();
