@@ -87,30 +87,36 @@ public class ServerSocketHandler {
         return false;
     }
 
-    public static JSONObject sendAndReceive(String clientHostname, int clientPort, int clientIndex, JSONObject data) throws IOException {
+    public static JSONObject sendAndReceive(JSONObject data) throws IOException {
         ServerSocket oneTimeServer = new ServerSocket(0);
 
         //Add the additional data
         JSONObject input = new JSONObject();
-        Socket sock;
 
-        input.put("Client-IP", clientHostname);
-        input.put("Client-Port", clientPort);
-        input.put("Client-Index", clientIndex);
+        input.put("Client-IP", "SERVER");
+        input.put("Client-Port", 0);
+        input.put("Client-Index", -1);
         input.put("One-Time-Response-Port", oneTimeServer.getLocalPort());
         input.put("Data", data);
 
-        //Init socket
-        sock = new Socket(clientHostname, clientPort);
+        //Send to all clients... the correct client will respond.
+        for (ClientSocketData csd : clients) {
+            try {
+                //Init socket
+                Socket sock = new Socket(csd.getIp(), csd.getPort());
 
-        //Send data to CrossTalk Server
-        DataOutputStream ds = new DataOutputStream(sock.getOutputStream());
-        ds.writeUTF(input.toString());
-        ds.close();
-        sock.close();
+                //Send data to CrossTalk Client
+                DataOutputStream ds = new DataOutputStream(sock.getOutputStream());
+                ds.writeUTF(input.toString());
+                ds.close();
+                sock.close();
+            } catch (Exception e) {
+                //Failed to send to specific client....
+                e.printStackTrace();
+            }
+        }
 
         //Open server and wait for response....
-
         Socket client = oneTimeServer.accept();
 
         DataInputStream dis = new DataInputStream(client.getInputStream());
