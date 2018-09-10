@@ -214,4 +214,8 @@ public class ServerSocketHandler {
         return false;
     }
 
+    public static List<ClientSocketData> getClients() {
+        return clients;
+    }
+
 }
