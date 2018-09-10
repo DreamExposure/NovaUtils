@@ -134,6 +134,52 @@ public class ServerSocketHandler {
         return responseData;
     }
 
+    public static JSONObject sendAndReceive(JSONObject data, String sendToIp, int sendToPort) throws IOException {
+        ServerSocket oneTimeServer = new ServerSocket(0);
+
+        //Add the additional data
+        JSONObject input = new JSONObject();
+
+        input.put("Client-IP", "SERVER");
+        input.put("Client-Port", 0);
+        input.put("Client-Index", -1);
+        input.put("One-Time-Response-Port", oneTimeServer.getLocalPort());
+        input.put("Data", data);
+
+        //Send to specific client
+        try {
+            //Init socket
+            Socket sock = new Socket(sendToIp, sendToPort);
+
+            //Send data to CrossTalk Client
+            DataOutputStream ds = new DataOutputStream(sock.getOutputStream());
+            ds.writeUTF(input.toString());
+            ds.close();
+            sock.close();
+        } catch (Exception e) {
+            //Failed to send to specific client....
+            e.printStackTrace();
+        }
+
+
+        //Open server and wait for response....
+        Socket client = oneTimeServer.accept();
+
+        DataInputStream dis = new DataInputStream(client.getInputStream());
+        String dataRaw = dis.readUTF();
+
+        JSONObject dataOr = new JSONObject(dataRaw);
+
+        //Parse
+        JSONObject responseData = new JSONObject(dataOr.getJSONObject("Data"));
+
+        dis.close();
+        client.close();
+        oneTimeServer.close();
+
+        return responseData;
+    }
+
     public static void setValues(int _serverPort) {
         serverPort = _serverPort;
     }
