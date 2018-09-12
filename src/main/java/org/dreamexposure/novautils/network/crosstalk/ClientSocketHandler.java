@@ -155,7 +155,7 @@ public class ClientSocketHandler {
                         event.setRequireResponse(true);
                         event.setOneTimeResponsePort(dataOr.getInt("One-Time-Response-Port"));
                     }
-                    EventManager.get().fireEvent(event);
+                    EventManager.get().getEventBus().post(event);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -1,7 +1,6 @@
 package org.dreamexposure.novautils.event;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.squareup.otto.Bus;
 
 /**
  * @author NovaFox161
@@ -14,7 +13,7 @@ import java.util.List;
 public class EventManager {
     private static EventManager instance;
 
-    private List<EventListenerWrapper> listeners = new ArrayList<>();
+    private Bus eventBus;
 
     private EventManager() {
     }
@@ -26,24 +25,12 @@ public class EventManager {
         return instance;
     }
 
-    /**
-     * Registers an event listener to have it's methods called when an event is fired
-     *
-     * @param listener The listener to register
-     */
-    public void registerEventListener(EventListener listener) {
-        EventListenerWrapper wrapper = new EventListenerWrapper(listener);
-        listeners.add(wrapper);
+    public void init() {
+        eventBus = new Bus();
     }
 
-    /**
-     * Fires an event
-     *
-     * @param o The event to fire
-     */
-    public void fireEvent(Object o) {
-        for (EventListenerWrapper wrapper : listeners) {
-            wrapper.callEvent(o);
-        }
+    public Bus getEventBus() {
+        return eventBus;
     }
+
 }
