@@ -1,6 +1,6 @@
 package org.dreamexposure.novautils.event;
 
-import com.squareup.otto.Bus;
+import com.google.common.eventbus.EventBus;
 
 /**
  * @author NovaFox161
@@ -13,7 +13,7 @@ import com.squareup.otto.Bus;
 public class EventManager {
     private static EventManager instance;
 
-    private Bus eventBus;
+    private EventBus eventBus;
 
     private EventManager() {
     }
@@ -26,10 +26,10 @@ public class EventManager {
     }
 
     public void init() {
-        eventBus = new Bus();
+        eventBus = new EventBus();
     }
 
-    public Bus getEventBus() {
+    public EventBus getEventBus() {
         return eventBus;
     }
 
