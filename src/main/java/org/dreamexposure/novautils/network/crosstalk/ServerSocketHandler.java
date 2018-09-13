@@ -125,7 +125,7 @@ public class ServerSocketHandler {
         JSONObject dataOr = new JSONObject(dataRaw);
 
         //Parse
-        JSONObject responseData = new JSONObject(dataOr.getJSONObject("Data"));
+        JSONObject responseData = dataOr.getJSONObject("Data");
 
         dis.close();
         client.close();
@@ -171,7 +171,7 @@ public class ServerSocketHandler {
         JSONObject dataOr = new JSONObject(dataRaw);
 
         //Parse
-        JSONObject responseData = new JSONObject(dataOr.getJSONObject("Data"));
+        JSONObject responseData = dataOr.getJSONObject("Data");
 
         dis.close();
         client.close();
@@ -203,7 +203,7 @@ public class ServerSocketHandler {
                     JSONObject dataOr = new JSONObject(dataRaw);
 
                     //Parse
-                    JSONObject data = new JSONObject(dataOr.getJSONObject("Data"));
+                    JSONObject data = dataOr.getJSONObject("Data");
                     String clientIp = dataOr.getString("Client-IP");
                     int clientPort = dataOr.getInt("Client-Port");
                     int clientIndex = dataOr.getInt("Client-Index");
