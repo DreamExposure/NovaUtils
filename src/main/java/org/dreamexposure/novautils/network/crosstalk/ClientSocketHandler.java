@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+@Deprecated
 @SuppressWarnings({"Duplicates"})
 public class ClientSocketHandler {
     private static ServerSocket serverSocket;

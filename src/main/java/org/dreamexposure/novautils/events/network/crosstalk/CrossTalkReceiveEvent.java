@@ -2,6 +2,7 @@ package org.dreamexposure.novautils.events.network.crosstalk;
 
 import org.json.JSONObject;
 
+@Deprecated
 public class CrossTalkReceiveEvent {
     private final JSONObject data;
     private final String clientIp;

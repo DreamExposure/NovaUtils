@@ -1,5 +1,6 @@
 package org.dreamexposure.novautils.network.crosstalk;
 
+@Deprecated
 public class ClientSocketData {
     private final String ip;
     private final int port;

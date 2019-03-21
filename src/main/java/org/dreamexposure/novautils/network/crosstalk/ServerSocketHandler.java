@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "Duplicates"})
 public class ServerSocketHandler {
     private static ServerSocket serverSocket;
