@@ -87,6 +87,22 @@
             <scope>compile</scope>
             <optional>false</optional>
         </dependency>
+        <!--JSCH API || API For SSH Tunnelling in Java-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
+            <scope>compile</scope>
+            <optional>false</optional>
+        </dependency>
+        <!--Connection pooling-->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.3.1</version>
+            <scope>compile</scope>
+            <optional>false</optional>
+        </dependency>
 
     </dependencies>
 

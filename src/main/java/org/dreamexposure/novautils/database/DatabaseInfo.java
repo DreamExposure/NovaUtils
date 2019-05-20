@@ -1,51 +1,33 @@
 package org.dreamexposure.novautils.database;
 
 
-import java.sql.Connection;
+import com.jcraft.jsch.Session;
+import com.zaxxer.hikari.HikariDataSource;
+
+import javax.annotation.Nullable;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class DatabaseInfo {
-    private MySQL mySQL;
-    private Connection con;
     private DatabaseSettings settings;
+    private HikariDataSource source;
+    private Session session;
 
-    /**
-     * Creates a new instance of the DatabaseInfo with the  needed data.
-     *
-     * @param _mySQL    The MySQL database the connection was made to.
-     * @param _con      The connection made to the MySQL database.
-     * @param _settings The DatabaseSettings containing all other needed data.
-     */
-    public DatabaseInfo(MySQL _mySQL, Connection _con, DatabaseSettings _settings) {
-        mySQL = _mySQL;
-        con = _con;
+    public DatabaseInfo(HikariDataSource _source, DatabaseSettings _settings, @Nullable Session _session) {
+        source = _source;
         settings = _settings;
+        session = _session;
     }
 
-    /**
-     * Gets the MySQL database the connection was made to.
-     *
-     * @return The MySQL database the connection was made to.
-     */
-    public MySQL getMySQL() {
-        return mySQL;
+    public HikariDataSource getSource() {
+        return source;
     }
 
-    /**
-     * Gets the connection made to the MySQL database.
-     *
-     * @return The connection made to the MySQL database.
-     */
-    public Connection getConnection() {
-        return con;
-    }
-
-    /**
-     * Gets the DatabaseSettings object containing all other needed data.
-     *
-     * @return The DatabaseSettings object containing all other needed data.
-     */
     public DatabaseSettings getSettings() {
         return settings;
+    }
+
+    @Nullable
+    public Session getSession() {
+        return session;
     }
 }

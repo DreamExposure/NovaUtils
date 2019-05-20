@@ -1,10 +1,12 @@
 package org.dreamexposure.novautils.database;
 
 
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+import com.zaxxer.hikari.HikariDataSource;
 import io.lettuce.core.RedisClient;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.Properties;
 
 @SuppressWarnings("unused")
 public class DatabaseManager {
@@ -16,13 +18,49 @@ public class DatabaseManager {
      */
     public static DatabaseInfo connectToMySQL(DatabaseSettings settings) {
         try {
-            MySQL mySQL = new MySQL(settings.getHostname(), settings.getPort(), settings.getDatabase(), settings.getUser(), settings.getPassword());
+            if (settings.isUseSSH()) {
+                //Create Session...
+                Properties config = new Properties();
+                config.put("StrictHostKeyChecking", "no");
+                JSch jsch = new JSch();
+                if (settings.getSshKeyFile() != null)
+                    jsch.addIdentity(settings.getSshKeyFile());
 
-            Connection mySQLConnection = mySQL.getConnection();
+                Session session = jsch.getSession(settings.getSshUser(), settings.getSshHost(), settings.getSshPort());
+                session.setConfig(config);
+                if (settings.getSshPassword() != null)
+                    session.setPassword(settings.getSshPassword());
+                session.setPortForwardingL(settings.getSshForwardPort(), settings.getHostname(), Integer.parseInt(settings.getPort()));
+                session.connect();
 
-            System.out.println("Database connection successful!");
+                //Create MySQL connections
+                HikariDataSource ds = new HikariDataSource();
 
-            return new DatabaseInfo(mySQL, mySQLConnection, settings);
+                String connectionURL = "jdbc:mysql://" + settings.getSshHost() + ":" + settings.getSshForwardPort();
+                if (settings.getDatabase() != null)
+                    connectionURL = connectionURL + "/" + settings.getDatabase() + "?useSSL=false";
+
+                ds.setJdbcUrl(connectionURL);
+                ds.setUsername(settings.getUser());
+                ds.setPassword(settings.getPassword());
+
+                System.out.println("Database connection successful!");
+                return new DatabaseInfo(ds, settings, session);
+
+            } else {
+                HikariDataSource ds = new HikariDataSource();
+
+                String connectionURL = "jdbc:mysql://" + settings.getHostname() + ":" + settings.getPort();
+                if (settings.getDatabase() != null)
+                    connectionURL = connectionURL + "/" + settings.getDatabase() + "?useSSL=false";
+
+                ds.setJdbcUrl(connectionURL);
+                ds.setUsername(settings.getUser());
+                ds.setPassword(settings.getPassword());
+
+                System.out.println("Database connection successful!");
+                return new DatabaseInfo(ds, settings, null);
+            }
         } catch (Exception e) {
             System.out.println("Failed to connect to database! Are the settings provided correct?");
             e.printStackTrace();
@@ -39,10 +77,14 @@ public class DatabaseManager {
      */
     public static boolean disconnectFromMySQL(DatabaseInfo info) {
         try {
-            info.getMySQL().closeConnection();
+            info.getSource().close();
             System.out.println("Successfully disconnected from MySQL Database!");
+
+            if (info.getSettings().isUseSSH() && info.getSession() != null) {
+                info.getSession().disconnect();
+            }
             return true;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("MySQL Connection may not have been closed properly! Data may be invalidated!");
             e.printStackTrace();
         }
