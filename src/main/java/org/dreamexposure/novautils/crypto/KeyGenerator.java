@@ -5,7 +5,7 @@ import java.util.Random;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class KeyGenerator {
-    private static char[] VALID_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456879".toCharArray();
+    private static final char[] VALID_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456879".toCharArray();
 
     /**
      * Securely generates an alphanumeric string to use for various things.

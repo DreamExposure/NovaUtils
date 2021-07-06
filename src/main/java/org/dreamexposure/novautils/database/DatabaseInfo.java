@@ -1,21 +1,15 @@
 package org.dreamexposure.novautils.database;
 
-
-import com.jcraft.jsch.Session;
 import com.zaxxer.hikari.HikariDataSource;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class DatabaseInfo {
-    private DatabaseSettings settings;
-    private HikariDataSource source;
-    private Session session;
+    private final DatabaseSettings settings;
+    private final HikariDataSource source;
 
-    public DatabaseInfo(HikariDataSource _source, DatabaseSettings _settings, @Nullable Session _session) {
+    public DatabaseInfo(HikariDataSource _source, DatabaseSettings _settings) {
         source = _source;
         settings = _settings;
-        session = _session;
     }
 
     public HikariDataSource getSource() {
@@ -24,10 +18,5 @@ public class DatabaseInfo {
 
     public DatabaseSettings getSettings() {
         return settings;
-    }
-
-    @Nullable
-    public Session getSession() {
-        return session;
     }
 }

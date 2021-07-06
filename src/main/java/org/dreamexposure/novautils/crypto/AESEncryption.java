@@ -10,12 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 
 public class AESEncryption {
-    //Public key, its fine if this is here, I don't even have access to private keys
-
-
-    private IvParameterSpec ivParameterSpec;
-    private SecretKeySpec secretKeySpec;
-    private Cipher cipher;
+    private final IvParameterSpec ivParameterSpec;
+    private final SecretKeySpec secretKeySpec;
+    private final Cipher cipher;
 
     /**
      * @param key1 Secret key one

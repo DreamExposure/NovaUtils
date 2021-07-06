@@ -42,59 +42,18 @@
     </repositories>
 
     <dependencies>
-        <!--JSON API-->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20140107</version>
-            <scope>compile</scope>
-            <optional>false</optional>
-        </dependency>
-        <!--OkHTTP API-->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>3.10.0</version>
-            <scope>compile</scope>
-            <optional>false</optional>
-        </dependency>
-        <!--Google Guava API for Event Handling-->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
-            <scope>compile</scope>
-            <optional>false</optional>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.9</version>
-            <scope>compile</scope>
-            <optional>false</optional>
+            <version>1.15</version>
         </dependency>
-        <!--Lettuce API for Redis-->
-        <dependency>
-            <groupId>io.lettuce</groupId>
-            <artifactId>lettuce-core</artifactId>
-            <version>5.1.2.RELEASE</version>
-            <scope>compile</scope>
-            <optional>false</optional>
-        </dependency>
-        <!--JSCH API || API For SSH Tunnelling in Java-->
-        <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
-            <version>0.1.55</version>
-            <scope>compile</scope>
-            <optional>false</optional>
-        </dependency>
+
         <!--Connection pooling-->
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>3.3.1</version>
+            <version>4.0.3</version>
             <scope>compile</scope>
             <optional>false</optional>
         </dependency>

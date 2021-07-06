@@ -1,8 +1,5 @@
 package org.dreamexposure.novautils.database;
 
-
-import javax.annotation.Nullable;
-
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class DatabaseSettings {
     //For database
@@ -12,16 +9,6 @@ public class DatabaseSettings {
     private final String user;
     private final String password;
     private final String prefix;
-
-    //For SSH tunnel
-    private String sshHost;
-    private int sshPort;
-    private int sshForwardPort;
-    private String sshUser;
-    private String sshPassword;
-    private String sshKeyFile;
-
-    private boolean useSSH = false;
 
 
     /**
@@ -41,16 +28,6 @@ public class DatabaseSettings {
         user = _user;
         password = _password;
         prefix = _prefix;
-    }
-
-    public void withSSH(String _host, int _port, String _user, @Nullable String _pass, @Nullable String _keyFile) {
-        sshHost = _host;
-        sshPort = _port;
-        sshUser = _user;
-        sshPassword = _pass;
-        sshKeyFile = _keyFile;
-
-        useSSH = true;
     }
 
     /**
@@ -105,35 +82,5 @@ public class DatabaseSettings {
      */
     public String getPrefix() {
         return prefix;
-    }
-
-    public String getSshHost() {
-        return sshHost;
-    }
-
-    public int getSshPort() {
-        return sshPort;
-    }
-
-    public int getSshForwardPort() {
-        return sshForwardPort;
-    }
-
-    public String getSshUser() {
-        return sshUser;
-    }
-
-    public boolean isUseSSH() {
-        return useSSH;
-    }
-
-    @Nullable
-    public String getSshPassword() {
-        return sshPassword;
-    }
-
-    @Nullable
-    public String getSshKeyFile() {
-        return sshKeyFile;
     }
 }
